@@ -1,0 +1,82 @@
+2019-11-03 19:56:00,578 - INFO - Database connection closed in databaseMain.databaseInit
+2019-11-03 19:56:00,705 - INFO - Database connection closed in databaseMain.databaseInit
+2019-11-03 19:56:00,809 - INFO - Database connection closed in databaseMain.databaseInit
+2019-11-03 19:56:03,208 - INFO - Database connection closed in databaseMain.databaseInit
+2019-11-03 19:56:03,451 - INFO - Database connection closed in dbMotion.checkTable
+2019-11-03 19:56:03,687 - INFO - Database connection closed in dbActivity.checkTable
+2019-11-03 19:56:03,922 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:56:04,159 - INFO - Database connection closed in getEncodings.checkTable
+2019-11-03 19:56:04,265 - INFO - Database connection closed in getEncodings.checkTable
+2019-11-03 19:56:04,316 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:56:05,401 - DEBUG - "GET /api/devices/000011/encodings/ HTTP/1.1" 200 1903
+2019-11-03 19:56:05,919 - INFO - Database connection closed in getEncodings.checkTable
+2019-11-03 19:56:05,997 - INFO - Record inserted successfully into encodingstable
+2019-11-03 19:56:05,999 - INFO - Database connection closed in getEncodings.refreshEncodings
+2019-11-03 19:56:06,001 - INFO - Activity Data sending
+2019-11-03 19:56:06,107 - INFO - Database connection closed in dbActivity.sendData
+2019-11-03 19:56:06,108 - INFO - Motion Data sending
+2019-11-03 19:56:06,214 - INFO - Database connection closed in dbMotion.sendData
+2019-11-03 19:56:06,215 - INFO - Checks Data sending
+2019-11-03 19:56:06,320 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:56:06,427 - INFO - Database connection closed in dbRecognition.sendData
+2019-11-03 19:56:06,536 - INFO - Database connection closed in dbActivity.checkTable
+2019-11-03 19:56:06,652 - INFO - Record inserted successfully into activitytable
+2019-11-03 19:56:06,654 - INFO - Database connection closed in dbActivity.insertData
+2019-11-03 19:56:17,831 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:56:18,059 - INFO - Record inserted successfully into rectable
+2019-11-03 19:56:18,061 - INFO - Database connection closed in dbRecognition.insertData
+2019-11-03 19:56:18,113 - INFO - Database connection closed in dbMotion.checkTable
+2019-11-03 19:56:18,235 - INFO - Record inserted successfully into motiontable
+2019-11-03 19:56:18,238 - INFO - Database connection closed in dbMotion.insertData
+2019-11-03 19:56:19,785 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:56:20,056 - INFO - Record inserted successfully into rectable
+2019-11-03 19:56:20,059 - INFO - Database connection closed in dbRecognition.insertData
+2019-11-03 19:56:29,542 - INFO - Database connection closed in dbMotion.checkTable
+2019-11-03 19:56:29,719 - INFO - Record updated successfully into motiontable
+2019-11-03 19:56:29,736 - INFO - Database connection closed in dbMotion.insertData
+2019-11-03 19:57:06,431 - INFO - Activity Data sending
+2019-11-03 19:57:06,581 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:57:06,776 - INFO - Database connection closed in dbActivity.checkTable
+2019-11-03 19:57:06,905 - INFO - Record updated successfully into activitytable
+2019-11-03 19:57:06,909 - INFO - Database connection closed in dbActivity.insertData
+2019-11-03 19:57:07,718 - DEBUG - "POST /api/status/devices/ HTTP/1.1" 200 23
+2019-11-03 19:57:07,753 - INFO - Record sent and deleted successfully from activitytable
+2019-11-03 19:57:07,761 - INFO - Database connection closed in dbActivity.sendData
+2019-11-03 19:57:07,763 - INFO - Motion Data sending
+2019-11-03 19:57:07,893 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:57:08,887 - DEBUG - "POST /api/motions/ HTTP/1.1" 200 20
+2019-11-03 19:57:08,917 - INFO - Record sent and deleted successfully from motiontable
+2019-11-03 19:57:08,922 - INFO - Database connection closed in dbMotion.sendData
+2019-11-03 19:57:08,923 - INFO - Checks Data sending
+2019-11-03 19:57:09,062 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:57:09,220 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:57:10,206 - DEBUG - "POST /api/checks/ HTTP/1.1" 400 42
+2019-11-03 19:57:10,247 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:57:12,336 - DEBUG - "POST /api/checks/ HTTP/1.1" 200 70
+2019-11-03 19:57:12,355 - INFO - Image successfully deleted from imageDataSet
+2019-11-03 19:57:12,374 - INFO - Record sent and deleted successfully from rectable
+2019-11-03 19:57:12,377 - INFO - Database connection closed in dbRecognition.sendData
+2019-11-03 19:57:37,066 - INFO - Database connection closed in dbMotion.checkTable
+2019-11-03 19:57:37,224 - INFO - Record inserted successfully into motiontable
+2019-11-03 19:57:37,228 - INFO - Database connection closed in dbMotion.insertData
+2019-11-03 19:58:07,032 - INFO - Database connection closed in dbActivity.checkTable
+2019-11-03 19:58:07,185 - INFO - Record inserted successfully into activitytable
+2019-11-03 19:58:07,187 - INFO - Database connection closed in dbActivity.insertData
+2019-11-03 19:58:12,381 - INFO - Activity Data sending
+2019-11-03 19:58:12,514 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:58:13,669 - DEBUG - "POST /api/status/devices/ HTTP/1.1" 200 23
+2019-11-03 19:58:13,719 - INFO - Record sent and deleted successfully from activitytable
+2019-11-03 19:58:13,724 - INFO - Database connection closed in dbActivity.sendData
+2019-11-03 19:58:13,725 - INFO - Motion Data sending
+2019-11-03 19:58:13,892 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:58:15,005 - DEBUG - "POST /api/motions/ HTTP/1.1" 200 20
+2019-11-03 19:58:15,050 - INFO - Record sent and deleted successfully from motiontable
+2019-11-03 19:58:15,055 - INFO - Database connection closed in dbMotion.sendData
+2019-11-03 19:58:15,057 - INFO - Checks Data sending
+2019-11-03 19:58:15,172 - INFO - Database connection closed in dbRecognition.checkTable
+2019-11-03 19:58:15,330 - INFO - Starting new HTTPS connection (1): www.kora.work
+2019-11-03 19:58:16,267 - DEBUG - "POST /api/checks/ HTTP/1.1" 400 42
+2019-11-03 19:58:16,296 - INFO - Database connection closed in dbRecognition.sendData
+2019-11-03 19:58:50,987 - INFO - Database connection closed in dbMotion.checkTable
+2019-11-03 19:58:51,134 - INFO - Record inserted successfully into motiontable
+2019-11-03 19:58:51,137 - INFO - Database connection closed in dbMotion.insertData
