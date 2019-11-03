@@ -50,9 +50,9 @@ def insertData(deviceId, workerPK, currTime, frame):
 	cursor = connection.cursor()
 	try:
 		if workerPK == None:
-			imageUrl = "/home/pi/koraupdater/imageDataSet/"'unknown_'+str(currTime)+".jpg"
+			imageUrl = "/home/pi/koraupdate/imageDataSet/"'unknown_'+str(currTime)+".jpg"
 		else:
-			imageUrl = "/home/pi/koraupdater/imageDataSet/"+workerPK+'_'+str(currTime)+".jpg"
+			imageUrl = "/home/pi/koraupdate/imageDataSet/"+workerPK+'_'+str(currTime)+".jpg"
 		cv2.imwrite(imageUrl, frame) 
 		connection = psycopg2.connect(
 			user = "postgres",
