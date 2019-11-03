@@ -108,7 +108,7 @@ def startRecognition(device_idn):
 	frame = np.empty((720,960,3),dtype=np.uint8)
 	while True:
 		try:
-			camera.capture(frame, format="rgb", use_video_port=True)
+			camera.capture(frame, format="bgr", use_video_port=True)
 			#
 			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			faces = face_cascade.detectMultiScale(gray, 1.3, 5)
