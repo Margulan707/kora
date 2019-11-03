@@ -9,7 +9,7 @@ import time, traceback
 import json
 from logfile import *
 
-with open('/home/pi/koraupdater/token.json', 'r') as f:
+with open('/home/pi/koraupdate/token.json', 'r') as f:
     token = json.load(f)
 
 auth_token = token['token']
