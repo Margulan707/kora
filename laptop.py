@@ -41,7 +41,7 @@ counter_motion = 0
 counter_motion_first = 0
 counter_internet = 0
 counter_live = 0
-face_cascade = cv2.CascadeClassifier('/home/pi/koraupdater/kora/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('/home/pi/koraupdate/kora/haarcascade_frontalface_default.xml')
 frame = None
 error_counter=0
 
