@@ -50,9 +50,9 @@ def insertData(deviceId, workerPK, currTime, frame):
 	cursor = connection.cursor()
 	try:
 		if workerPK == None:
-			imageUrl = "/home/pi/koraupdate/imageDataSet/"'unknown_'+str(currTime)+".jpg"
+			imageUrl = "/home/pi/koraupdate/imageDataSet/"'unknown_'+str(currTime.strftime("%Y_%m_%d_%H_%M_%S"))+".jpg"
 		else:
-			imageUrl = "/home/pi/koraupdate/imageDataSet/"+workerPK+'_'+str(currTime)+".jpg"
+			imageUrl = "/home/pi/koraupdate/imageDataSet/"+workerPK+'_'+str(currTime.strftime("%Y_%m_%d_%H_%M_%S"))+".jpg"
 		cv2.imwrite(imageUrl, frame) 
 		connection = psycopg2.connect(
 			user = "postgres",
@@ -87,7 +87,9 @@ def sendData(auth_token, header, device_idn):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * from rectable")
 	rows = cursor.fetchall()
+	print(rows)
 	for row in rows:
+		print(row)
 		try:
 			#print(row)
 			worker = row[1]
@@ -103,6 +105,7 @@ def sendData(auth_token, header, device_idn):
 						'datetime': datetime},
 						timeout=10)
 			if(r.status_code == 200):
+				print(r.text)
 				if os.path.exists(img):
 					os.remove(img)
 					log_database_changes("Image successfully deleted from imageDataSet")
@@ -112,6 +115,7 @@ def sendData(auth_token, header, device_idn):
 				connection.commit()
 				log_database_changes("Record sent and deleted successfully from rectable")
 		except Exception as e:
+			print("Error Rec")
 			log_exception(e, "dbRecognition.sendData")
 	cursor.close()
 	connection.close()
