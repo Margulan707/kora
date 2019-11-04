@@ -93,7 +93,9 @@ def sendData(auth_token, header, device_idn):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * from activitytable")
 	rows = cursor.fetchall()
+	print(rows)
 	for row in rows:
+		print(row)
 		try:
 			r = requests.post("https://www.kora.work/api/status/devices/",
 					headers=header,
@@ -102,10 +104,12 @@ def sendData(auth_token, header, device_idn):
 						'finishtime': str(row[2])},
 						timeout=10)
 			if(r.status_code == 200):
+				print(r.text)
 				cursor.execute("DELETE FROM activitytable WHERE starttime = '{}'".format(row[1]))
 				connection.commit()
 				log_database_changes("Record sent and deleted successfully from activitytable")
 		except Exception as e:
+			print("Error Activity")
 			log_exception(e, "dbActivity.sendData")
 	cursor.close()
 	connection.close()
