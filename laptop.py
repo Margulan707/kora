@@ -3,6 +3,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(12, GPIO.OUT)
 GPIO.setup(16, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
 GPIO.output(21, GPIO.HIGH)
 GPIO.output(12, GPIO.HIGH)
 GPIO.output(16, GPIO.HIGH)
@@ -44,6 +45,7 @@ counter_live = 0
 face_cascade = cv2.CascadeClassifier('/home/pi/koraupdate/kora/haarcascade_frontalface_default.xml')
 frame = None
 error_counter=0
+light_boolean = False 
 
 def saveEncodings():
 	connection = psycopg2.connect(
@@ -71,11 +73,11 @@ def refreshUnknownList(encodings):
 
 def sendPK(name_index, frame, device_idn):
 	global known_face_pk
-	dbR.insertData(device_idn, known_face_pk[name_index], str(datetime.now()), frame)
+	dbR.insertData(device_idn, known_face_pk[name_index], datetime.now(), frame)
 	GPIO.output(12, GPIO.LOW)
 
 def sendUnknown(name_index, frame, device_idn):
-	dbR.insertData(device_idn, None, str(datetime.now()), frame)
+	dbR.insertData(device_idn, None, datetime.now(), frame)
 	GPIO.output(21, GPIO.LOW)
 
 def sendMovement(boolean, device_idn):
@@ -87,7 +89,16 @@ def sendActivity(device_idn):
 	if not _FINISH:
 		Timer(60, sendActivity, args=[device_idn]).start()
 
-
+def lightOn(bool, b):
+	global light_boolean
+	if bool: 
+		GPIO.output(18, GPIO.HIGH)
+		light_boolean = True
+		Timer(15, lightOn, args=(False, False)).start()
+	else:
+		GPIO.output(18, GPIO.LOW)
+		light_boolean = False
+	
 
 for i in range(5):
 	GPIO.output(16, GPIO.HIGH)
@@ -168,6 +179,8 @@ def startRecognition(device_idn):
 					continue
 				Movement_B = True
 			if Movement_B:
+				if not light_boolean:
+					Thread(target=lightOn, args=(True, True)).start()
 				if datetime.now() > (movement_time+timedelta(seconds = 10)):
 					t3 = Thread(target=sendMovement, args=(True, device_idn))
 					t3.start()
