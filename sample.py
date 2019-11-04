@@ -36,9 +36,11 @@ def updater():
         print(r.text)
         status = json.loads(r.text)
         if status['success']:
-		    os.system("python3 /home/pi/koraupdate/updater.py")
+		os.system("python3 /home/pi/koraupdate/updater.py")
+	threading.Timer(600, updater).start()
     except:
         pass
+threading.Timer(0, updater).start()
         
 dbMain.databaseInit()
 dbMotion.checkTable()
