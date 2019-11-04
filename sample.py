@@ -30,6 +30,16 @@ def sendToServer():
     if not laptop._FINISH:
         threading.Timer(60, sendToServer).start()
 
+def updater():
+    try:
+        r = requests.get("https://www.kora.work/api/updated/"+device_idn, headers=header, timeout = 10)
+        print(r.text)
+        status = json.loads(r.text)
+        if status['success']:
+		    os.system("python3 /home/pi/koraupdate/updater.py")
+    except:
+        pass
+        
 dbMain.databaseInit()
 dbMotion.checkTable()
 dbActivity.checkTable()
