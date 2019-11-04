@@ -9,6 +9,7 @@ import time, traceback
 import json
 from logfile import *
 import requests
+import os 
 with open('/home/pi/koraupdate/token.json', 'r') as f:
     token = json.load(f)
 
