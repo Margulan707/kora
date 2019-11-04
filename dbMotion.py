@@ -90,7 +90,9 @@ def sendData(auth_token, header, device_idn):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * from motiontable")
 	rows = cursor.fetchall()
+	print(rows)
 	for row in rows:
+		print(row)
 		try:
 			r = requests.post("https://www.kora.work/api/motions/",
 				headers=header,
@@ -99,10 +101,12 @@ def sendData(auth_token, header, device_idn):
 					'finishtime': str(row[2])},
 					timeout=10)
 			if(r.status_code == 200):
+				print(r.text)
 				cursor.execute("DELETE FROM motiontable WHERE starttime = '{}'".format(row[1]))
 				connection.commit()
 				log_database_changes("Record sent and deleted successfully from motiontable")
 		except Exception as e:
+			print("Error Motion")
 			log_exception(e, "dbMotion.sendData")
 	cursor.close()
 	connection.close()
