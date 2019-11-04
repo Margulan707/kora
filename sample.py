@@ -8,7 +8,7 @@ import threading
 import time, traceback
 import json
 from logfile import *
-
+import requests
 with open('/home/pi/koraupdate/token.json', 'r') as f:
     token = json.load(f)
 
