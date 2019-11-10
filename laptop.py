@@ -134,7 +134,7 @@ def startRecognition(device_idn):
     camera.resolution = (1600, 1200)
     frame = np.empty((1200,1600,3),dtype=np.uint8)
     while True:
-        #try:
+        try:
             camera.capture(frame, format="bgr", use_video_port=True)
             #
             small_frame = cv2.resize(frame, (280, 210))
@@ -222,12 +222,12 @@ def startRecognition(device_idn):
                 global _FINISH
                 _FINISH = True
                 break
-        #except KeyboardInterrupt:
-         #   GPIO.output(21, GPIO.LOW)
-        #    GPIO.output(12, GPIO.LOW)
-         #   GPIO.output(16, GPIO.LOW)
-         #   camera.close()
-         #   break
-         #   cv2.destroyAllWindows()
-        #except:
-         #   pass
+        except KeyboardInterrupt:
+           GPIO.output(21, GPIO.LOW)
+           GPIO.output(12, GPIO.LOW)
+           GPIO.output(16, GPIO.LOW)
+           camera.close()
+           break
+           cv2.destroyAllWindows()
+        except:
+           pass
