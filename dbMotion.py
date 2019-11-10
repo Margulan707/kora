@@ -51,11 +51,12 @@ def insertData(deviceId, currentTime, finishTime):
 				sTime = rows[len(rows)-1][1]
 				fTime = rows[len(rows)-1][2]
 				#print(fTime)
+				currentTime = datetime.strptime(currentTime, '%Y-%m-%d %H:%M:%S.%f')
 				time1 = datetime.strptime(fTime, '%Y-%m-%d %H:%M:%S.%f')
 				#print(type(time1))
 				elapsedTime = (currentTime - time1).total_seconds()
 				#print(elapsedTime)
-				if elapsedTime < 300:
+				if elapsedTime < 300 and (currentTime.day == time1.day):
 					query = "UPDATE motiontable SET finishtime = %s WHERE starttime = %s"
 					record_to_update = (finishTime, sTime)
 					cursor.execute(query, record_to_update)
@@ -72,7 +73,7 @@ def insertData(deviceId, currentTime, finishTime):
 				connection.commit()
 				log_database_changes("Record inserted successfully into motiontable")						
 	except Exception as e :
-		log_exception(e)
+		log_exception(e, "dbMotion.insertData")
 
 	finally:
 		if(connection):

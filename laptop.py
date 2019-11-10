@@ -73,7 +73,7 @@ def refreshUnknownList(encodings):
 
 def sendPK(name_index, frame, device_idn):
 	global known_face_pk
-	dbR.insertData(device_idn, known_face_pk[name_index], datetime.now(), frame)
+	dbR.insertData(device_idn, name_index, datetime.now(), frame)
 	GPIO.output(12, GPIO.LOW)
 
 def sendUnknown(name_index, frame, device_idn):
@@ -110,6 +110,22 @@ for i in range(5):
 	GPIO.output(21, GPIO.LOW)
 	time.sleep(0.2)
 
+def predict(frame):
+	face_encoding = face_recognition.face_encodings(frame)[0]
+	distances = face_recognition.face_distance(face_encoding, known_face_encodings)
+	name = "Unknown"
+	mini = 0.6 #Maximum distance to be recognized
+	pos = -1
+	#print(len(distances))
+	for i, distance in enumerate(distances):
+		if (distance < mini):
+			mini = distance
+			pos = i
+	if pos > -1:
+		name = known_face_pk[pos]
+	return name, face_encoding
+
+
 def startRecognition(device_idn):
 	counter_motion = 0
 	counter_motion_first = 0
@@ -120,29 +136,27 @@ def startRecognition(device_idn):
 	while True:
 		try:
 			camera.capture(frame, format="bgr", use_video_port=True)
-			#
-			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-			faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-			faces = list(faces)
+			faces = face_recognition.face_locations(frame)
 			#if face is found
 			if faces:
 				GPIO.output(16, GPIO.HIGH)
 				for (x,y,w,h) in faces:
-					face_loc = list([tuple(np.array([y, x+w, y+h, x]).tolist())])
-					face_encoding = face_recognition.face_encodings(frame, face_loc)
-					matches = face_recognition.face_distance(known_face_encodings, face_encoding[0])
-					name_index = np.argmin(matches)
+					face_size = (y-h) * (w-x)
+					if face_size < 30000:
+						continue
+	
 					GPIO.output(16, GPIO.LOW)
-					if (matches[name_index]<0.5):
+					temp = predict(frame)
+					name = temp[0]
+					face_encoding = temp[1]
+					crop_face = frame[y-50:y+h+50, x-50:x+w+50]
+					if name != "Unknown":
 						GPIO.output(12, GPIO.HIGH)
-						#print("Known face")
-						if known_face_pk[name_index] not in sended_face_pk:
-							sended_face_pk.append(known_face_pk[name_index])
-							crop_face = frame[y-50:y+h+50, x-50:x+w+50]
-							Thread(target=sendPK, args=(name_index, crop_face, device_idn)).start()
-							Timer(600, refreshSendedList, args=[known_face_pk[name_index]]).start()
+						if name not in sended_face_pk:
+							sended_face_pk.append(name)
+							Thread(target=sendPK, args=(name, crop_face, device_idn)).start()
+							Timer(600, refreshSendedList, args=[name]).start()
 					else:
-						#print("Unknown face")
 						GPIO.output(21, GPIO.HIGH)
 						if unknown_face_encodings:
 							matches = face_recognition.face_distance(np.array(unknown_face_encodings), face_encoding[0])
@@ -150,16 +164,18 @@ def startRecognition(device_idn):
 							if (matches[0][name_index]<0.5):
 								continue
 							else:
-								crop_face = frame[y-50:y+h+50, x-50:x+w+50]
 								Thread(target=sendUnknown, args=(name_index, crop_face, device_idn)).start()
 								unknown_face_encodings.append(face_encoding)
 								Timer(600, refreshUnknownList, args=[face_encoding]).start()
 						else:
-							crop_face = frame[y-50:y+h+50, x-50:x+w+50]
 							Thread(target=sendUnknown, args=(name_index, crop_face, device_idn)).start()
 							unknown_face_encodings.append(face_encoding)
 							Timer(600, refreshUnknownList, args=[face_encoding]).start()
+
+					
 			#checking movement
+
+			gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			Movement_B = False
 			gray = cv2.GaussianBlur(gray, (21, 21), 0)
 			if counter_motion_first == 0:
