@@ -48,6 +48,11 @@ error_counter=0
 light_boolean = False 
 
 def saveEncodings():
+    global known_face_encodings
+    known_face_encodings = []
+    global known_face_pk
+    known_face_pk = []
+    print("entered saveEncodings")
     connection = psycopg2.connect(
             user = "postgres",
             password = "1231",
@@ -63,6 +68,7 @@ def saveEncodings():
             encoding.append(float(num))
         known_face_encodings.append(encoding)
         known_face_pk.append(row[1])
+    #print(known_face_pk)
 
 def refreshSendedList(delete_pk):
     global sended_face_pk
@@ -133,8 +139,13 @@ def startRecognition(device_idn):
     camera = picamera.PiCamera()
     camera.resolution = (1600, 1200)
     frame = np.empty((1200,1600,3),dtype=np.uint8)
+    updateEnc = 0
     while True:
         try:
+            updateEnc += 1
+            if updateEnc > 150:
+                saveEncodings()
+                updateEnc = 0
             camera.capture(frame, format="bgr", use_video_port=True)
             #
             small_frame = cv2.resize(frame, (280, 210))
