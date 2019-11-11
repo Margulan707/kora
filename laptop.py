@@ -143,7 +143,7 @@ def startRecognition(device_idn):
     while True:
         try:
             updateEnc += 1
-            if updateEnc > 150:
+            if updateEnc > 1500:
                 saveEncodings()
                 updateEnc = 0
             camera.capture(frame, format="bgr", use_video_port=True)

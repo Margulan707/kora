@@ -38,7 +38,7 @@ def updater():
         status = json.loads(r.text)
         if status['success']:
             os.system("python3 /home/pi/koraupdate/updater.py")
-        threading.Timer(60, updater).start()
+        threading.Timer(3600, updater).start()
     except:
         pass
 def encodingsUpdate():
