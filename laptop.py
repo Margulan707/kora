@@ -116,22 +116,6 @@ for i in range(5):
     GPIO.output(21, GPIO.LOW)
     time.sleep(0.2)
 
-def predict(frame, face_loc):
-    face_encoding = face_recognition.face_encodings(frame, face_loc)
-    distances = face_recognition.face_distance(known_face_encodings, face_encoding[0])
-    name = "Unknown"
-    mini = 0.6 #Maximum distance to be recognized
-    pos = -1
-    #print(len(distances))
-    for i, distance in enumerate(distances):
-        if (distance < mini):
-            mini = distance
-            pos = i
-    if pos > -1:
-        name = known_face_pk[pos]
-    return name, face_encoding
-
-
 def startRecognition(device_idn):
     counter_motion = 0
     counter_motion_first = 0
@@ -156,7 +140,7 @@ def startRecognition(device_idn):
                 for (x,y,w,h) in faces:
                     area = (w-x)*(y-h)
                     print(area)
-                    if area < 2000:
+                    if area < 1500:
                         continue
                     GPIO.output(16, GPIO.HIGH)
                     x = int(x*5.7)
