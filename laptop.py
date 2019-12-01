@@ -137,16 +137,16 @@ def startRecognition(device_idn):
             faces = face_locations
             #if face is found
             if faces:
-                face_landmarks_list = face_recognition.face_landmarks(rgb_frame, faces, 'large')
-                (x_l,y) = face_landmarks_list[0]['left_eye'][3]
-                (x_r,y) = face_landmarks_list[0]['right_eye'][0]
+                face_landmarks_list = face_recognition.face_landmarks(small_frame, faces, 'large')
+                (x_l,y_l) = face_landmarks_list[0]['left_eye'][3]
+                (x_r,y_r) = face_landmarks_list[0]['right_eye'][0]
                 (x_n,y_n) = face_landmarks_list[0]['nose_bridge'][0]
         
                 for (x,y,w,h) in faces:
                     area = (w-x)*(y-h)
                     print(area)
-                    if (area < 1500) and ((abs(x_n-x_l)/abs(x_n-x_r)>1.5) and (abs(x_n-x_l)/abs(x_n-x_r)<0.5)):
-                        continue
+                    if (area < 1500) or ((abs(x_n-x_l)/abs(x_n-x_r)>1.5) or (abs(x_n-x_l)/abs(x_n-x_r)<0.5)):
+                        break
                     GPIO.output(16, GPIO.HIGH)
                     x = int(x*5.7)
                     y = int(y*5.7)
